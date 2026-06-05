@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { Search, ArrowUpDown } from 'lucide-react'
+import { Search, ChevronsUpDown, Sparkles } from 'lucide-react'
 import { Article, FieldType, FIELD_INFO, FIELD_CATEGORIES } from '../types'
 import Header from '../components/Header'
 import ArticleCard from '../components/ArticleCard'
@@ -61,14 +61,33 @@ export default function HomePage({
   const allFields = Object.entries(FIELD_INFO) as [FieldType, typeof FIELD_INFO[FieldType]][]
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen">
       <Header onCreateClick={onCreateClick} />
 
-      {/* Field Selector - Clean Grid */}
-      <section className="px-4 sm:px-6 lg:px-8 py-8 border-b border-slate-200">
+      {/* Hero Section - Elliptical with circular accent */}
+      <section className="px-4 sm:px-6 lg:px-8 py-10">
         <div className="max-w-7xl mx-auto">
-          <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-4">Select Field</h3>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2">
+          <div className="relative bg-white border border-slate-200 rounded-[50px] overflow-hidden">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-gradient-to-b from-purple-200 via-pink-200 to-transparent rounded-full blur-3xl opacity-40"></div>
+            <div className="relative p-8">
+              <div className="flex items-center gap-4 mb-2">
+                <div className="text-5xl">{fieldInfo.icon}</div>
+                <h2 className="text-3xl font-black text-slate-900">
+                  {fieldInfo.label}
+                </h2>
+              </div>
+              <p className="text-slate-600 text-sm ml-16">
+                {fieldInfo.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Field Selector - Circular arrangement */}
+      <section className="px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex gap-2 overflow-x-auto pb-2 -mx-2 px-2 flex-wrap justify-center">
             {allFields.map(([field, info]) => (
               <button
                 key={field}
@@ -77,45 +96,23 @@ export default function HomePage({
                   setSelectedCategory(null)
                   setSearchTerm('')
                 }}
-                className={`group p-3 rounded-xl transition-smooth border-2 flex flex-col items-center gap-2 ${
+                className={`group flex-shrink-0 w-14 h-14 rounded-full font-semibold transition-smooth flex items-center justify-center ${
                   selectedField === field
-                    ? 'bg-slate-900 text-white border-slate-900'
-                    : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                    ? 'bg-gradient-to-br from-purple-400 via-pink-400 to-blue-400 text-white shadow-glow'
+                    : 'bg-white text-slate-700 border-2 border-slate-200 hover:border-purple-300 hover:shadow-elevated'
                 }`}
+                title={info.label}
               >
-                <div className="text-2xl">{info.icon}</div>
-                <div className="text-xs font-semibold leading-tight text-center hidden sm:block">
-                  {info.label.split(' ')[0]}
-                </div>
+                <span className="text-lg">{info.icon}</span>
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Hero Section - Clean Design */}
-      <section className="px-4 sm:px-6 lg:px-8 py-8">
+      {/* Search Bar - Elliptical */}
+      <section className="px-4 sm:px-6 lg:px-8 py-6 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-white border border-slate-200 rounded-3xl p-8">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="text-5xl">{fieldInfo.icon}</div>
-              <div>
-                <h2 className="text-4xl font-black text-slate-900 mb-1">
-                  {fieldInfo.label}
-                </h2>
-                <p className="text-slate-600">
-                  {fieldInfo.description}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Search & Filters - Clean Layout */}
-      <section className="px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-7xl mx-auto space-y-6">
-          {/* Search Bar */}
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
             <input
@@ -123,48 +120,53 @@ export default function HomePage({
               placeholder="Search articles..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-smooth"
+              className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-full text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-smooth"
             />
           </div>
+        </div>
+      </section>
 
-          {/* Category Filters - Clean Buttons */}
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className={`px-4 py-2 rounded-lg whitespace-nowrap font-semibold transition-smooth border ${
-                selectedCategory === null
-                  ? 'bg-slate-900 text-white border-slate-900'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
-              }`}
-            >
-              All
-            </button>
-            {availableCategories.map(category => (
+      {/* Filters & Sort - Circular pills */}
+      <section className="px-4 sm:px-6 lg:px-8 py-5">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            {/* Category Filter - Circular pills */}
+            <div className="flex gap-2 overflow-x-auto pb-1 -mx-2 px-2 flex-1">
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-lg whitespace-nowrap font-semibold transition-smooth border ${
-                  selectedCategory === category
-                    ? 'bg-slate-900 text-white border-slate-900'
-                    : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                onClick={() => setSelectedCategory(null)}
+                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-smooth whitespace-nowrap ${
+                  selectedCategory === null
+                    ? 'bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 text-white shadow-glow'
+                    : 'bg-white text-slate-700 border border-slate-200 hover:border-purple-300'
                 }`}
               >
-                {category}
+                All
               </button>
-            ))}
-          </div>
+              {availableCategories.map(category => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition-smooth whitespace-nowrap ${
+                    selectedCategory === category
+                      ? 'bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 text-white shadow-glow'
+                      : 'bg-white text-slate-700 border border-slate-200 hover:border-purple-300'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
 
-          {/* Sort Control */}
-          <div className="flex justify-between items-center">
-            <p className="text-sm font-medium text-slate-600">
-              {filteredArticles.length} {filteredArticles.length === 1 ? 'Article' : 'Articles'}
-            </p>
-            <div className="flex items-center gap-2">
-              <ArrowUpDown className="w-4 h-4 text-slate-400" />
+            {/* Sort Control - Circular */}
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <span className="text-xs font-medium text-slate-600">
+                {filteredArticles.length} {filteredArticles.length === 1 ? 'article' : 'articles'}
+              </span>
+              <ChevronsUpDown className="w-4 h-4 text-slate-400" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest')}
-                className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
+                className="px-3 py-2 bg-white border border-slate-200 rounded-full text-xs font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-400"
               >
                 <option value="newest">Newest</option>
                 <option value="oldest">Oldest</option>
@@ -175,17 +177,18 @@ export default function HomePage({
       </section>
 
       {/* Articles Grid */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-16">
+      <section className="px-4 sm:px-6 lg:px-8 pb-16 pt-6">
         <div className="max-w-7xl mx-auto">
           {filteredArticles.length === 0 ? (
             <div className="text-center py-16">
+              <Sparkles className="w-12 h-12 text-slate-400 mx-auto mb-4" />
               <p className="text-lg text-slate-600 mb-4">No articles found</p>
               <button
                 onClick={() => {
                   setSearchTerm('')
                   setSelectedCategory(null)
                 }}
-                className="inline-block px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-smooth font-semibold"
+                className="inline-block px-6 py-2 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 text-white rounded-full hover:shadow-glow transition-smooth font-semibold"
               >
                 Clear Filters
               </button>

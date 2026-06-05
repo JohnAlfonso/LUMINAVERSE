@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Quicksand', 'Fredoka', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

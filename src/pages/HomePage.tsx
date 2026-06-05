@@ -64,25 +64,15 @@ export default function HomePage({
     <div className="min-h-screen">
       <Header onCreateClick={onCreateClick} />
 
-      {/* Hero Section - Elliptical with circular accent */}
-      <section className="px-4 sm:px-6 lg:px-8 py-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative bg-white border border-slate-200 rounded-[50px] overflow-hidden">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-48 bg-gradient-to-b from-purple-200 via-pink-200 to-transparent rounded-full blur-3xl opacity-40"></div>
-            <div className="relative p-8">
-              <div className="flex items-center gap-4 mb-2">
-                <div className="text-5xl">{fieldInfo.icon}</div>
-                <h2 className="text-3xl font-black text-slate-900">
-                  {fieldInfo.label}
-                </h2>
-              </div>
-              <p className="text-slate-600 text-sm ml-16">
-                {fieldInfo.description}
-              </p>
-            </div>
-          </div>
+      {/* Field Info Watermark */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-20 -right-20 text-9xl opacity-5 text-slate-700">
+          {fieldInfo.icon}
         </div>
-      </section>
+        <div className="absolute -bottom-40 -left-40 text-8xl opacity-5 text-slate-700">
+          {fieldInfo.icon}
+        </div>
+      </div>
 
       {/* Field Selector + Search Bar - Horizontal Layout */}
       <section className="px-4 sm:px-6 lg:px-8 py-6 border-b border-slate-200">

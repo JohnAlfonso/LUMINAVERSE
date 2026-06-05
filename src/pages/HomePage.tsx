@@ -27,10 +27,6 @@ export default function HomePage({
     return articles.filter(a => a.field === selectedField)
   }, [articles, selectedField])
 
-  // const categories = useMemo(() => {
-  //   return Array.from(new Set(fieldArticles.map(a => a.category)))
-  // }, [fieldArticles])
-
   const filteredArticles = useMemo(() => {
     let result = fieldArticles
 
@@ -61,148 +57,147 @@ export default function HomePage({
   const allFields = Object.entries(FIELD_INFO) as [FieldType, typeof FIELD_INFO[FieldType]][]
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen">
       <Header onCreateClick={onCreateClick} />
 
-      {/* Field Selector - Clean Grid */}
-      <section className="px-4 sm:px-6 lg:px-8 py-8 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto">
-          <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-4">Select Field</h3>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-9 gap-2">
-            {allFields.map(([field, info]) => (
-              <button
-                key={field}
-                onClick={() => {
-                  onFieldChange(field)
-                  setSelectedCategory(null)
-                  setSearchTerm('')
-                }}
-                className={`group p-3 rounded-xl transition-smooth border-2 flex flex-col items-center gap-2 ${
-                  selectedField === field
-                    ? 'bg-slate-900 text-white border-slate-900'
-                    : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
-                }`}
-              >
-                <div className="text-2xl">{info.icon}</div>
-                <div className="text-xs font-semibold leading-tight text-center hidden sm:block">
-                  {info.label.split(' ')[0]}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Hero Section - Clean Design */}
-      <section className="px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-white border border-slate-200 rounded-3xl p-8">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="text-5xl">{fieldInfo.icon}</div>
-              <div>
-                <h2 className="text-4xl font-black text-slate-900 mb-1">
-                  {fieldInfo.label}
-                </h2>
-                <p className="text-slate-600">
-                  {fieldInfo.description}
-                </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* ── Sidebar: Field Selector (moved here from the top bar) ── */}
+          <aside className="lg:w-64 lg:flex-shrink-0">
+            <div className="lg:sticky lg:top-24">
+              <h3 className="text-sm font-bold text-slate-600 uppercase tracking-wider mb-4">
+                Fields
+              </h3>
+              <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-1 gap-2">
+                {allFields.map(([field, info]) => (
+                  <button
+                    key={field}
+                    onClick={() => {
+                      onFieldChange(field)
+                      setSelectedCategory(null)
+                      setSearchTerm('')
+                    }}
+                    className={`group p-3 rounded-xl transition-smooth border-2 flex flex-col lg:flex-row items-center gap-2 lg:gap-3 ${
+                      selectedField === field
+                        ? 'bg-slate-900 text-white border-slate-900'
+                        : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                    }`}
+                  >
+                    <div className="text-2xl">{info.icon}</div>
+                    <div className="text-xs lg:text-sm font-semibold leading-tight text-center lg:text-left">
+                      {info.label.split(' ')[0]}
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </aside>
 
-      {/* Search & Filters - Clean Layout */}
-      <section className="px-4 sm:px-6 lg:px-8 py-8">
-        <div className="max-w-7xl mx-auto space-y-6">
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search articles..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-smooth"
-            />
-          </div>
+          {/* ── Main column: Hero + Search + Filters + Articles ── */}
+          <main className="flex-1 min-w-0 space-y-8">
+            {/* Hero */}
+            <section className="bg-white border border-slate-200 rounded-3xl p-8">
+              <div className="flex items-center gap-4">
+                <div className="text-5xl">{fieldInfo.icon}</div>
+                <div>
+                  <h2 className="text-4xl font-black text-slate-900 mb-1">
+                    {fieldInfo.label}
+                  </h2>
+                  <p className="text-slate-600">
+                    {fieldInfo.description}
+                  </p>
+                </div>
+              </div>
+            </section>
 
-          {/* Category Filters - Clean Buttons */}
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className={`px-4 py-2 rounded-lg whitespace-nowrap font-semibold transition-smooth border ${
-                selectedCategory === null
-                  ? 'bg-slate-900 text-white border-slate-900'
-                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
-              }`}
-            >
-              All
-            </button>
-            {availableCategories.map(category => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-lg whitespace-nowrap font-semibold transition-smooth border ${
-                  selectedCategory === category
-                    ? 'bg-slate-900 text-white border-slate-900'
-                    : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-
-          {/* Sort Control */}
-          <div className="flex justify-between items-center">
-            <p className="text-sm font-medium text-slate-600">
-              {filteredArticles.length} {filteredArticles.length === 1 ? 'Article' : 'Articles'}
-            </p>
-            <div className="flex items-center gap-2">
-              <ArrowUpDown className="w-4 h-4 text-slate-400" />
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest')}
-                className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
-              >
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-              </select>
+            {/* Search Bar */}
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search articles..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-smooth"
+              />
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Articles Grid */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="max-w-7xl mx-auto">
-          {filteredArticles.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="text-lg text-slate-600 mb-4">No articles found</p>
-              <button
-                onClick={() => {
-                  setSearchTerm('')
-                  setSelectedCategory(null)
-                }}
-                className="inline-block px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-smooth font-semibold"
-              >
-                Clear Filters
-              </button>
+            {/* Category Filters + Sort */}
+            <div className="space-y-4">
+              <div className="flex gap-2 overflow-x-auto pb-2">
+                <button
+                  onClick={() => setSelectedCategory(null)}
+                  className={`px-4 py-2 rounded-lg whitespace-nowrap font-semibold transition-smooth border ${
+                    selectedCategory === null
+                      ? 'bg-slate-900 text-white border-slate-900'
+                      : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  All
+                </button>
+                {availableCategories.map(category => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 rounded-lg whitespace-nowrap font-semibold transition-smooth border ${
+                      selectedCategory === category
+                        ? 'bg-slate-900 text-white border-slate-900'
+                        : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex justify-between items-center">
+                <p className="text-sm font-medium text-slate-600">
+                  {filteredArticles.length} {filteredArticles.length === 1 ? 'Article' : 'Articles'}
+                </p>
+                <div className="flex items-center gap-2">
+                  <ArrowUpDown className="w-4 h-4 text-slate-400" />
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest')}
+                    className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm font-medium text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
+                  >
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                  </select>
+                </div>
+              </div>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredArticles.map(article => (
-                <ArticleCard
-                  key={article.id}
-                  article={article}
-                  onClick={() => onArticleClick(article.id)}
-                />
-              ))}
-            </div>
-          )}
+
+            {/* Articles Grid */}
+            <section>
+              {filteredArticles.length === 0 ? (
+                <div className="text-center py-16">
+                  <p className="text-lg text-slate-600 mb-4">No articles found</p>
+                  <button
+                    onClick={() => {
+                      setSearchTerm('')
+                      setSelectedCategory(null)
+                    }}
+                    className="inline-block px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-smooth font-semibold"
+                  >
+                    Clear Filters
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {filteredArticles.map(article => (
+                    <ArticleCard
+                      key={article.id}
+                      article={article}
+                      onClick={() => onArticleClick(article.id)}
+                    />
+                  ))}
+                </div>
+              )}
+            </section>
+          </main>
         </div>
-      </section>
+      </div>
     </div>
   )
 }

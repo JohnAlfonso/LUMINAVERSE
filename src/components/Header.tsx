@@ -15,8 +15,10 @@ export default function Header({ onCreateClick }: HeaderProps) {
               <PenTool className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-black text-slate-900">LUMINAVERSE</h1>
-              <p className="text-xs text-slate-500 font-medium">Multi-Field Platform</p>
+              <h1 className="text-2xl font-black tracking-tight bg-gradient-to-r from-cyan-300 via-indigo-300 to-fuchsia-300 bg-clip-text text-transparent">
+                Fieldnotes
+              </h1>
+              <p className="text-xs text-slate-500 font-medium">Insights across every field</p>
             </div>
           </div>
 

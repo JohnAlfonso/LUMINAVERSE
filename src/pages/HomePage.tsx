@@ -84,40 +84,41 @@ export default function HomePage({
         </div>
       </section>
 
-      {/* Field Selector - Dropdown Menu */}
+      {/* Field Selector + Search Bar - Horizontal Layout */}
       <section className="px-4 sm:px-6 lg:px-8 py-6 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <label className="block text-sm font-semibold text-slate-600 mb-2">Select Field</label>
-          <select
-            value={selectedField}
-            onChange={(e) => {
-              onFieldChange(e.target.value as FieldType)
-              setSelectedCategory(null)
-              setSearchTerm('')
-            }}
-            className="w-full sm:w-80 px-4 py-3 bg-white border border-slate-200 rounded-full text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-smooth shadow-clean"
-          >
-            {allFields.map(([field, info]) => (
-              <option key={field} value={field}>
-                {info.icon} {info.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      </section>
+          <div className="flex flex-col lg:flex-row gap-4 items-end">
+            {/* Dropdown on left */}
+            <div className="flex-shrink-0">
+              <label className="block text-sm font-semibold text-slate-600 mb-2">Field</label>
+              <select
+                value={selectedField}
+                onChange={(e) => {
+                  onFieldChange(e.target.value as FieldType)
+                  setSelectedCategory(null)
+                  setSearchTerm('')
+                }}
+                className="w-full sm:w-64 px-4 py-3 bg-white border border-slate-200 rounded-full text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-smooth shadow-clean"
+              >
+                {allFields.map(([field, info]) => (
+                  <option key={field} value={field}>
+                    {info.icon} {info.label}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-      {/* Search Bar - Elliptical */}
-      <section className="px-4 sm:px-6 lg:px-8 py-6 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search articles..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-full text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-smooth"
-            />
+            {/* Search on right */}
+            <div className="flex-1 relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search articles..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-full text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-smooth"
+              />
+            </div>
           </div>
         </div>
       </section>

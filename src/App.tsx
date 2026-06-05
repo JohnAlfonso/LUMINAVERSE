@@ -63,18 +63,18 @@ function App() {
     updateURL(page)
   }
 
-  const handleCreateArticle = (articleData: any) => {
-    addArticle(articleData)
+  const handleCreateArticle = async (articleData: any) => {
+    await addArticle(articleData)
     navigateTo({ type: 'home' })
   }
 
-  const handleUpdateArticle = (id: string, articleData: any) => {
-    updateArticle(id, articleData)
+  const handleUpdateArticle = async (id: string, articleData: any) => {
+    await updateArticle(id, articleData)
     navigateTo({ type: 'detail', articleId: id })
   }
 
-  const handleDeleteArticle = (id: string) => {
-    deleteArticle(id)
+  const handleDeleteArticle = async (id: string) => {
+    await deleteArticle(id)
     navigateTo({ type: 'home' })
   }
 

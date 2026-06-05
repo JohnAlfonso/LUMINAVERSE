@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 import { Article, FieldType } from '../types'
 
 const STORAGE_KEY = 'luminaverse_articles'
+const ARTICLES_JSON_URL = '/articles.json'
 
+// Fallback articles if JSON can't be loaded
 const defaultArticles: Article[] = [
   // TECHNOLOGY FIELD (4 articles)
   {
@@ -421,31 +423,94 @@ const defaultArticles: Article[] = [
 
 export const useArticles = () => {
   const [articles, setArticles] = useState<Article[]>(() => {
+    // Try to load from localStorage first (for user's new articles)
     const stored = localStorage.getItem(STORAGE_KEY)
     return stored ? JSON.parse(stored) : defaultArticles
   })
 
+  // Load articles from JSON file on mount
   useEffect(() => {
+    const loadArticles = async () => {
+      try {
+        const response = await fetch(ARTICLES_JSON_URL)
+        if (response.ok) {
+          const jsonArticles = await response.json()
+          // Merge JSON articles with localStorage articles
+          const localArticles = localStorage.getItem(STORAGE_KEY)
+          const userArticles = localArticles ? JSON.parse(localArticles) : []
+
+          // Combine: JSON articles + any new user articles
+          const merged = [...jsonArticles]
+          const jsonIds = new Set(jsonArticles.map((a: Article) => a.id))
+
+          // Add user articles that aren't in JSON
+          userArticles.forEach((article: Article) => {
+            if (!jsonIds.has(article.id)) {
+              merged.push(article)
+            }
+          })
+
+          setArticles(merged)
+        }
+      } catch (error) {
+        console.log('Using cached articles')
+      }
+    }
+
+    loadArticles()
+  }, [])
+
+  useEffect(() => {
+    // Save all articles to localStorage (for persistence)
     localStorage.setItem(STORAGE_KEY, JSON.stringify(articles))
   }, [articles])
 
-  const addArticle = (article: Omit<Article, 'id'>) => {
-    const newArticle: Article = {
-      ...article,
-      id: Date.now().toString(),
+  const addArticle = async (article: Omit<Article, 'id'>) => {
+    try {
+      const response = await fetch('/api/articles', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(article),
+      })
+      if (response.ok) {
+        const data = await response.json()
+        const newArticle = data.article as Article
+        setArticles([newArticle, ...articles])
+        return newArticle
+      }
+    } catch (error) {
+      console.error('Error adding article:', error)
     }
-    setArticles([newArticle, ...articles])
-    return newArticle
   }
 
-  const updateArticle = (id: string, updates: Partial<Article>) => {
-    setArticles(articles.map(article =>
-      article.id === id ? { ...article, ...updates } : article
-    ))
+  const updateArticle = async (id: string, updates: Partial<Article>) => {
+    try {
+      const response = await fetch(`/api/articles/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates),
+      })
+      if (response.ok) {
+        setArticles(articles.map(article =>
+          article.id === id ? { ...article, ...updates } : article
+        ))
+      }
+    } catch (error) {
+      console.error('Error updating article:', error)
+    }
   }
 
-  const deleteArticle = (id: string) => {
-    setArticles(articles.filter(article => article.id !== id))
+  const deleteArticle = async (id: string) => {
+    try {
+      const response = await fetch(`/api/articles/${id}`, {
+        method: 'DELETE',
+      })
+      if (response.ok) {
+        setArticles(articles.filter(article => article.id !== id))
+      }
+    } catch (error) {
+      console.error('Error deleting article:', error)
+    }
   }
 
   const getArticleById = (id: string) => {

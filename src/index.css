@@ -9,6 +9,19 @@
 
 html {
   scroll-behavior: smooth;
+  font-family: 'Fredoka', 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  font-family: 'Fredoka', 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: 0.3px;
+}
+
+/* Cartoon-style headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Fredoka', 'Varela Round', sans-serif;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
 }
 
 /* ============================================================
@@ -42,6 +55,20 @@ body {
     radial-gradient(900px 700px at 10% 80%, rgba(255, 107, 53, 0.14), transparent 60%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
   background-attachment: fixed;
+  font-weight: 500;
+}
+
+/* Cartoon button styling */
+button {
+  font-family: 'Fredoka', 'Varela Round', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+/* Playful input styling */
+input, select, textarea {
+  font-family: 'Fredoka', 'Varela Round', sans-serif;
+  letter-spacing: 0.2px;
 }
 
 /* Animations */

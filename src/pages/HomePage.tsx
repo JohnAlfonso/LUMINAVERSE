@@ -84,29 +84,25 @@ export default function HomePage({
         </div>
       </section>
 
-      {/* Field Selector - Circular arrangement */}
-      <section className="px-4 sm:px-6 lg:px-8 py-8">
+      {/* Field Selector - Dropdown Menu */}
+      <section className="px-4 sm:px-6 lg:px-8 py-6 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          <div className="flex gap-2 overflow-x-auto pb-2 -mx-2 px-2 flex-wrap justify-center">
+          <label className="block text-sm font-semibold text-slate-600 mb-2">Select Field</label>
+          <select
+            value={selectedField}
+            onChange={(e) => {
+              onFieldChange(e.target.value as FieldType)
+              setSelectedCategory(null)
+              setSearchTerm('')
+            }}
+            className="w-full sm:w-80 px-4 py-3 bg-white border border-slate-200 rounded-full text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-smooth shadow-clean"
+          >
             {allFields.map(([field, info]) => (
-              <button
-                key={field}
-                onClick={() => {
-                  onFieldChange(field)
-                  setSelectedCategory(null)
-                  setSearchTerm('')
-                }}
-                className={`group flex-shrink-0 w-14 h-14 rounded-full font-semibold transition-smooth flex items-center justify-center ${
-                  selectedField === field
-                    ? 'bg-gradient-to-br from-purple-400 via-pink-400 to-blue-400 text-white shadow-glow'
-                    : 'bg-white text-slate-700 border-2 border-slate-200 hover:border-purple-300 hover:shadow-elevated'
-                }`}
-                title={info.label}
-              >
-                <span className="text-lg">{info.icon}</span>
-              </button>
+              <option key={field} value={field}>
+                {info.icon} {info.label}
+              </option>
             ))}
-          </div>
+          </select>
         </div>
       </section>
 

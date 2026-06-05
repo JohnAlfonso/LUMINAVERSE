@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { Search, ArrowUpDown } from 'lucide-react'
+import { Search, ChevronsUpDown } from 'lucide-react'
 import { Article, FieldType, FIELD_INFO, FIELD_CATEGORIES } from '../types'
 import Header from '../components/Header'
 import ArticleCard from '../components/ArticleCard'
@@ -162,7 +162,7 @@ export default function HomePage({
               <span className="text-xs font-medium text-slate-600">
                 {filteredArticles.length} {filteredArticles.length === 1 ? 'article' : 'articles'}
               </span>
-              <ArrowUpDown className="w-4 h-4 text-slate-400" />
+              <ChevronsUpDown className="w-4 h-4 text-slate-400" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest')}

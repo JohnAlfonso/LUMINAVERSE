@@ -1,4 +1,4 @@
-import { PenTool } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
 
 interface HeaderProps {
   onCreateClick: () => void
@@ -12,7 +12,7 @@ export default function Header({ onCreateClick }: HeaderProps) {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-red-600 rounded-lg flex items-center justify-center">
-              <PenTool className="w-6 h-6 text-white" />
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
               <h1 className="text-2xl font-black tracking-tight bg-gradient-to-r from-yellow-300 via-orange-400 to-red-600 bg-clip-text text-transparent">

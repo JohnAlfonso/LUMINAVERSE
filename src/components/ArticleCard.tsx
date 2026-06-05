@@ -1,4 +1,4 @@
-import { Calendar, Clock, ArrowRight, Copy, Check } from 'lucide-react'
+import { CalendarDays, Zap, ChevronRight, Clipboard, CheckCircle } from 'lucide-react'
 import { useState } from 'react'
 import { Article, FIELD_INFO } from '../types'
 import { getArticleURL, copyToClipboard } from '../utils/urls'
@@ -48,7 +48,7 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
             {article.category}
           </span>
           <span className="text-xs text-slate-500 flex items-center gap-1 font-medium">
-            <Clock className="w-3 h-3" />
+            <Zap className="w-3 h-3" />
             {article.readTime} min
           </span>
         </div>
@@ -71,7 +71,7 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
           <div className="flex flex-col">
             <p className="text-xs font-semibold text-slate-900">{article.author}</p>
             <p className="text-xs text-slate-500 flex items-center gap-1 font-medium">
-              <Calendar className="w-3 h-3" />
+              <CalendarDays className="w-3 h-3" />
               {new Date(article.date).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',
@@ -88,13 +88,13 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
               title="Copy article URL"
             >
               {copied ? (
-                <Check className="w-3.5 h-3.5 text-green-600" />
+                <CheckCircle className="w-3.5 h-3.5 text-green-600" />
               ) : (
-                <Copy className="w-3.5 h-3.5 text-slate-400" />
+                <Clipboard className="w-3.5 h-3.5 text-slate-400" />
               )}
             </button>
             <div className="text-slate-400 group-hover:text-orange-600 transition-colors">
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ChevronRight className="w-3.5 h-3.5" />
             </div>
           </div>
         </div>

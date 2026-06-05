@@ -7,47 +7,109 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  @apply bg-slate-50 text-slate-900;
-}
-
 html {
   scroll-behavior: smooth;
 }
 
-/* Clean animations */
+/* ============================================================
+   THEME: "Sunset" — warm, golden (theme_sunset branch)
+   Deep indigo/navy base with orange→red→purple gradients.
+   ============================================================ */
+
+:root {
+  --bg:            #0f1419;   /* deep navy base               */
+  --bg-2:          #1a1f2e;   /* gradient end                 */
+  --surface:       #1a2332;   /* cards / header (was white)   */
+  --surface-2:     #232d3d;   /* elevated items (was slate-100) */
+  --text:          #fef3f0;   /* light cream (headings)       */
+  --text-2:        #f5d5c8;   /* warm tan (strong body)       */
+  --text-3:        #d4a574;   /* muted gold                   */
+  --text-4:        #a68560;   /* softer gold                  */
+  --text-5:        #8b7355;   /* dim muted                    */
+  --border:        rgba(255, 152, 0, 0.12);
+  --border-soft:   rgba(255, 152, 0, 0.06);
+  --border-strong: rgba(255, 152, 0, 0.25);
+  --accent-from:   #ffd60a;   /* golden yellow */
+  --accent-mid:    #ff6b35;   /* warm orange   */
+  --accent-to:     #c1121f;   /* deep red      */
+}
+
+body {
+  color: var(--text);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(1000px 600px at 90% 10%, rgba(193, 18, 31, 0.18), transparent 50%),
+    radial-gradient(900px 700px at 10% 80%, rgba(255, 107, 53, 0.14), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  background-attachment: fixed;
+}
+
+/* Animations */
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-slide-up { animation: slideUp 0.3s ease-out; }
+.animate-fade-in  { animation: fadeIn 0.2s ease-out; }
+
+/* Shapes */
+.shape-circle      { @apply rounded-full; }
+.shape-square      { @apply rounded-none; }
+.shape-rounded-lg  { @apply rounded-2xl; }
+.shape-rounded-xl  { @apply rounded-3xl; }
+
+/* Borders + shadows for warm sunset surfaces */
+.border-clean { border: 1px solid var(--border); }
+.border-light { border: 1px solid var(--border-soft); }
+.shadow-clean    { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); }
+.shadow-elevated { box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px var(--border-soft); }
+.shadow-hover    { box-shadow: 0 24px 60px -14px rgba(255, 107, 53, 0.4), 0 0 0 1px var(--border); }
+.transition-smooth { @apply transition-all duration-200 ease-out; }
+
+/* ---- token re-map: surfaces -------------------------------- */
+.bg-white      { background-color: var(--surface) !important; }
+.bg-slate-50   { background-color: var(--bg) !important; }
+.bg-slate-100  { background-color: var(--surface-2) !important; }
+
+/* ---- token re-map: primary / selected (golden→orange→red) ---- */
+.bg-slate-900 {
+  background-image: linear-gradient(135deg, var(--accent-from), var(--accent-mid) 55%, var(--accent-to)) !important;
+  background-color: transparent !important;
+  box-shadow: 0 6px 20px -6px rgba(255, 107, 53, 0.6);
 }
 
-.animate-slide-up {
-  animation: slideUp 0.3s ease-out;
-}
+/* ---- token re-map: text ------------------------------------ */
+.text-slate-900 { color: var(--text)   !important; }
+.text-slate-800 { color: var(--text)   !important; }
+.text-slate-700 { color: var(--text-2) !important; }
+.text-slate-600 { color: var(--text-3) !important; }
+.text-slate-500 { color: var(--text-4) !important; }
+.text-slate-400 { color: var(--text-5) !important; }
 
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-out;
-}
+/* ---- token re-map: borders --------------------------------- */
+.border-slate-200 { border-color: var(--border)      !important; }
+.border-slate-100 { border-color: var(--border-soft) !important; }
 
-/* Advanced shapes */
-.shape-circle {
-  @apply rounded-full;
-}
+/* ---- token re-map: interactive states ---------------------- */
+.hover\:bg-slate-50:hover     { background-color: rgba(255, 152, 0, 0.06) !important; }
+.hover\:bg-slate-100:hover    { background-color: rgba(255, 152, 0, 0.09) !important; }
+.hover\:bg-slate-800:hover    { filter: brightness(1.15) !important; }
+.hover\:border-slate-300:hover{ border-color: var(--border-strong) !important; }
+.hover\:text-slate-700:hover  { color: var(--text) !important; }
+.hover\:text-slate-900:hover  { color: var(--text) !important; }
+
+/* ---- token re-map: form focus ring / placeholder ----------- */
+.focus\:ring-slate-900:focus  { --tw-ring-color: rgba(255, 107, 53, 0.7) !important; }
+.placeholder-slate-400::placeholder { color: var(--text-5) !important; }
+
+/* Warm sunset scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255, 152, 0, 0.25); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 152, 0, 0.4); }
 
 .shape-square {
   @apply rounded-none;

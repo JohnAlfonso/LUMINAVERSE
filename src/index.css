@@ -23,14 +23,14 @@ html {
   --bg:            #ffffff;   /* pure white base              */
   --surface:       #ffffff;   /* white surfaces               */
   --surface-2:     #f5f5f5;   /* light gray (subtle)          */
-  --text:          #000000;   /* pure black (headings)        */
-  --text-2:        #1a1a1a;   /* near-black (body)            */
-  --text-3:        #4a4a4a;   /* medium gray (muted)          */
-  --text-4:        #7a7a7a;   /* light gray                   */
-  --text-5:        #aaaaaa;   /* very light gray              */
-  --border:        #000000;
+  --text:          #2a2a2a;   /* soft dark gray (headings)    */
+  --text-2:        #3a3a3a;   /* softer gray (body)           */
+  --text-3:        #5a5a5a;   /* medium gray (muted)          */
+  --text-4:        #8a8a8a;   /* light gray                   */
+  --text-5:        #b0b0b0;   /* very light gray              */
+  --border:        #2a2a2a;   /* soft dark gray borders       */
   --border-soft:   #e0e0e0;
-  --border-strong: #1a1a1a;
+  --border-strong: #3a3a3a;
   --accent:        #ee3333;   /* bold red */
 }
 

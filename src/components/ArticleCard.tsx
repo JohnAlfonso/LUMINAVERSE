@@ -24,7 +24,7 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
   return (
     <article
       onClick={onClick}
-      className="group cursor-pointer bg-white border-2 border-black overflow-hidden transition-smooth hover:shadow-bold"
+      className="group cursor-pointer bg-white border-2 border-gray-700 overflow-hidden transition-smooth hover:shadow-bold"
     >
       {/* Header - Bold accent */}
       <div className="h-2 bg-red-600"></div>
@@ -33,33 +33,33 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
       <div className="p-6">
         {/* Category Badge - Bold */}
         <div className="flex items-center gap-2 mb-4">
-          <span className="inline-block px-3 py-1 bg-black text-white text-xs font-black rounded">
+          <span className="inline-block px-3 py-1 bg-gray-800 text-white text-xs font-black rounded">
             {article.category}
           </span>
-          <span className="text-xs text-black flex items-center gap-1 font-bold">
+          <span className="text-xs text-gray-700 flex items-center gap-1 font-bold">
             <Zap className="w-3 h-3" />
             {article.readTime} MIN
           </span>
         </div>
 
         {/* Title - Bold, Large */}
-        <h2 className="text-lg font-black text-black mb-3 line-clamp-2 group-hover:text-red-600 transition-colors">
+        <h2 className="text-lg font-black text-gray-900 mb-3 line-clamp-2 group-hover:text-red-600 transition-colors">
           {article.title}
         </h2>
 
         {/* Excerpt */}
-        <p className="text-black text-sm mb-4 line-clamp-2 font-medium">
+        <p className="text-gray-800 text-sm mb-4 line-clamp-2 font-medium">
           {article.excerpt}
         </p>
 
         {/* Divider - Bold */}
-        <div className="w-full h-2 bg-black mb-4"></div>
+        <div className="w-full h-2 bg-gray-700 mb-4"></div>
 
         {/* Footer */}
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
-            <p className="text-sm font-black text-black">{article.author}</p>
-            <p className="text-xs text-black flex items-center gap-1 font-bold">
+            <p className="text-sm font-black text-gray-900">{article.author}</p>
+            <p className="text-xs text-gray-700 flex items-center gap-1 font-bold">
               <CalendarDays className="w-3 h-3" />
               {new Date(article.date).toLocaleDateString('en-US', {
                 year: 'numeric',
@@ -79,18 +79,18 @@ export default function ArticleCard({ article, onClick }: ArticleCardProps) {
               {copied ? (
                 <CheckCircle className="w-4 h-4 text-green-600" />
               ) : (
-                <Clipboard className="w-4 h-4 text-black" />
+                <Clipboard className="w-4 h-4 text-gray-700" />
               )}
             </button>
-            <div className="text-black group-hover:text-red-600 transition-colors">
+            <div className="text-gray-700 group-hover:text-red-600 transition-colors">
               <ChevronRight className="w-4 h-4 font-bold" />
             </div>
           </div>
         </div>
 
         {/* URL Display on hover */}
-        <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity pt-4 border-t-2 border-black">
-          <p className="text-xs text-black break-all font-mono font-bold">
+        <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity pt-4 border-t-2 border-gray-700">
+          <p className="text-xs text-gray-700 break-all font-mono font-bold">
             {articleURL}
           </p>
         </div>

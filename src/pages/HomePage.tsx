@@ -64,12 +64,12 @@ export default function HomePage({
       <Header onCreateClick={onCreateClick} />
 
       {/* Field Selector + Search - Bold Minimal */}
-      <section className="px-4 sm:px-6 lg:px-8 py-8 border-b-2 border-black">
+      <section className="px-4 sm:px-6 lg:px-8 py-8 border-b-2 border-gray-700">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-6 items-end">
             {/* Dropdown */}
             <div className="flex-shrink-0">
-              <label className="block text-sm font-black text-black mb-2 tracking-widest uppercase">Field</label>
+              <label className="block text-sm font-black text-gray-800 mb-2 tracking-widest uppercase">Field</label>
               <select
                 value={selectedField}
                 onChange={(e) => {
@@ -77,7 +77,7 @@ export default function HomePage({
                   setSelectedCategory(null)
                   setSearchTerm('')
                 }}
-                className="w-full sm:w-80 px-4 py-3 bg-white border-2 border-black text-black font-bold text-sm focus:outline-none focus:ring-2 focus:ring-red-600 transition-smooth"
+                className="w-full sm:w-80 px-4 py-3 bg-white border-2 border-gray-700 text-gray-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-red-600 transition-smooth"
               >
                 {allFields.map(([field, info]) => (
                   <option key={field} value={field}>
@@ -89,13 +89,13 @@ export default function HomePage({
 
             {/* Search */}
             <div className="flex-1 relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-black w-5 h-5 font-bold" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-700 w-5 h-5 font-bold" />
               <input
                 type="text"
                 placeholder="Search articles..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-white border-2 border-black text-black font-medium placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 transition-smooth"
+                className="w-full pl-12 pr-4 py-3 bg-white border-2 border-gray-700 text-gray-900 font-medium placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 transition-smooth"
               />
             </div>
           </div>
@@ -103,7 +103,7 @@ export default function HomePage({
       </section>
 
       {/* Category Filters - Bold Minimal */}
-      <section className="px-4 sm:px-6 lg:px-8 py-6 border-b-2 border-black">
+      <section className="px-4 sm:px-6 lg:px-8 py-6 border-b-2 border-gray-700">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             {/* Category pills */}
@@ -113,7 +113,7 @@ export default function HomePage({
                 className={`flex-shrink-0 px-4 py-2 font-bold text-sm uppercase tracking-wider transition-smooth border-2 ${
                   selectedCategory === null
                     ? 'bg-red-600 text-white border-red-600 shadow-bold'
-                    : 'bg-white text-black border-black hover:bg-red-600 hover:text-white hover:border-red-600'
+                    : 'bg-white text-gray-800 border-gray-700 hover:bg-red-600 hover:text-white hover:border-red-600'
                 }`}
               >
                 All
@@ -125,7 +125,7 @@ export default function HomePage({
                   className={`flex-shrink-0 px-4 py-2 font-bold text-sm uppercase tracking-wider transition-smooth border-2 ${
                     selectedCategory === category
                       ? 'bg-red-600 text-white border-red-600 shadow-bold'
-                      : 'bg-white text-black border-black hover:bg-red-600 hover:text-white hover:border-red-600'
+                      : 'bg-white text-gray-800 border-gray-700 hover:bg-red-600 hover:text-white hover:border-red-600'
                   }`}
                 >
                   {category}
@@ -135,14 +135,14 @@ export default function HomePage({
 
             {/* Sort Control */}
             <div className="flex items-center gap-3 flex-shrink-0">
-              <span className="text-sm font-bold text-black">
+              <span className="text-sm font-bold text-gray-800">
                 {filteredArticles.length} {filteredArticles.length === 1 ? 'ARTICLE' : 'ARTICLES'}
               </span>
-              <ChevronsUpDown className="w-4 h-4 text-black font-bold" />
+              <ChevronsUpDown className="w-4 h-4 text-gray-700 font-bold" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest')}
-                className="px-4 py-2 bg-white border-2 border-black text-black font-bold text-sm focus:outline-none focus:ring-2 focus:ring-red-600"
+                className="px-4 py-2 bg-white border-2 border-gray-700 text-gray-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-red-600"
               >
                 <option value="newest">Newest</option>
                 <option value="oldest">Oldest</option>
@@ -157,7 +157,7 @@ export default function HomePage({
         <div className="max-w-7xl mx-auto">
           {filteredArticles.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-2xl font-black text-black mb-6">NO ARTICLES FOUND</p>
+              <p className="text-2xl font-black text-gray-800 mb-6">NO ARTICLES FOUND</p>
               <button
                 onClick={() => {
                   setSearchTerm('')

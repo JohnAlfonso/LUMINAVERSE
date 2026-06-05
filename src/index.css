@@ -95,7 +95,7 @@ input, select, textarea {
 .shadow-clean    { box-shadow: 0 2px 8px rgba(26, 26, 26, 0.08); }
 .shadow-elevated { box-shadow: 0 8px 24px rgba(26, 26, 26, 0.12); }
 .shadow-subtle   { box-shadow: 0 1px 3px rgba(26, 26, 26, 0.06); }
-.transition-smooth { @apply transition-all duration-400 ease-out; }
+.transition-smooth { transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1); }
 
 /* Decorative line */
 .divider-gold { border-top: 2px solid var(--accent-gold); }
